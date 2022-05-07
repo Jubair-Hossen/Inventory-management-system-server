@@ -31,6 +31,15 @@ async function run() {
             res.send(products);
         })
 
+        // get products added by spacific user
+        app.get('/productsbyuser', async (req, res) => {
+            const userEmail = req.query.email;
+            const query = { email: userEmail };
+            const cursor = productCollection.find(query);
+            const products = await cursor.toArray();
+            res.send(products);
+        })
+
         // get product by id api
         app.get('/inventory/:id', async (req, res) => {
             const id = req.params.id;
